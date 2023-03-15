@@ -1,0 +1,26 @@
+name: Create Feature Candidate
+
+description: Create Feature Candidate
+
+inputs:
+  tag:
+    required: true
+    description: tag
+
+runs:
+  using: "composite"
+  steps:
+    - name: Git checkout
+      uses: actions/checkout@v3
+      with:
+        ref: "main"
+
+    - name: Git
+      run: |
+        JIRA_ID=$(atar-cli ci -j=${GITHUB_REF_NAME} 2>&1)
+        BRANCH_NAME="fc/${JIRA_ID}"
+        git config user.name "GitHub Actions Bot"
+        git config user.email "devops@atarb2b.com"
+        git checkout -b $BRANCH_NAME || echo
+        git push --set-upstream origin $BRANCH_NAME || echo
+      shell: bash
