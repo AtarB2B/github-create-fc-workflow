@@ -2,11 +2,6 @@ name: Create Feature Candidate
 
 description: Create Feature Candidate
 
-inputs:
-  tag:
-    required: true
-    description: tag
-
 runs:
   using: "composite"
   steps:
